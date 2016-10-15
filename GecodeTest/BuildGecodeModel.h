@@ -69,10 +69,10 @@ void BuildGecodeModel(XMLModel *xmodel, GecodeModel* g_model)
 					num_tuples* = d->size;
 				}
 
+				for (int j = 0; j < num_tuples; ++j)
+				{
 
-
-
-
+				}
 			}
 
 			IntVarArgs scope;
