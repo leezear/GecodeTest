@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BenchMark>
+  <BMFiles nbBMFiles = "1">
+    <!--<BMFile id ="0">XMLFile.xml</BMFile>-->
+    <BMFile id ="0">E:\Projects\benchmarks\driver\driverlogw-01c-sat_ext.xml</BMFile>
+  </BMFiles>
+</BenchMark>
