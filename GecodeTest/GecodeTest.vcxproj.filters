@@ -27,9 +27,6 @@
     <ClCompile Include="XMLModel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="GecodeModel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Builder.h">
@@ -44,15 +41,19 @@
     <ClInclude Include="Base.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="XMLModel.h">
+    <ClInclude Include="GecodeModel.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="GecodeModel.h">
+    <ClInclude Include="BuildGecodeModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLModel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="XMLFile.xml" />
     <Xml Include="BMPath.xml" />
+    <Xml Include="queens-12_ext.xml" />
   </ItemGroup>
 </Project>

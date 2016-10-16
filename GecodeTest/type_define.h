@@ -185,7 +185,7 @@ inline int func_eq(int *x) {
 }
 
 inline int func_abs(int *x) {
-	return fabsf(x[0]);
+	return (int)fabsf(x[0]);
 }
 
 inline int func_sub(int *x) {

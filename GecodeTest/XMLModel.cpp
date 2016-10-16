@@ -29,7 +29,7 @@ XMLVariable CreateVariable(int id, int dm_id) {
 	return variable;
 }
 
-XMLRelation CreateTabular(int id, int size, int arity, int semantices, char *tuple_str) {
+XMLRelation CreateTabular(int id, int size, int arity, Semantices semantices, char *tuple_str) {
 	XMLRelation relation;
 	relation.id = id;
 	relation.size = size;

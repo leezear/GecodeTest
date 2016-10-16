@@ -39,10 +39,13 @@ int main() {
 	branch(*gm, gm->vars_, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
 	DFS<GecodeModel> ee(gm);
 	delete gm;
+	int i = 0;
 	while(GecodeModel* ss = ee.next()) {
-		ss->print();
+		//ss->print();
+		++i;
 		delete ss;
 	}
+	cout <<"|solutions| = "<< i << endl;
 	cout << "---end---" << endl;
 	return 0;
 

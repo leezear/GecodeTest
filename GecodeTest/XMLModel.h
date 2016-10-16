@@ -27,7 +27,7 @@ struct XMLRelation {
 	int id;
 	int size = 0;
 	int arity;
-	int semantices;
+	Semantices semantices;
 	int num_parameters = 0;
 	int *parameters;
 	RelationType type;
@@ -71,9 +71,9 @@ struct XMLModel {
 
 XMLDomain CreateDomain(int id, int size, char* values_str);
 XMLVariable CreateVariable(int id, int dm_id);
-XMLRelation CreateTabular(int id, int size, int arity, int semantices, char *tuple_str);
-XMLConstraint CreateConstraint(const int id,const int arity, int *scope,const int re_id);
-XMLConstraint CreateConstraint(const int id,const int arity, int *scope,const int pre_id, char* pars_chr,const int pars_len);
+XMLRelation CreateTabular(int id, int size, int arity, Semantices semantices, char *tuple_str);
+XMLConstraint CreateConstraint(const int id, const int arity, int *scope, const int re_id);
+XMLConstraint CreateConstraint(const int id, const int arity, int *scope, const int pre_id, char* pars_chr, const int pars_len);
 int *CreateScope(char * scope_str, const int arity);
 XMLPredicate CreatePredicate(int id, char* pas_chr, char* prs_chr);
 bool CreateDomains(XMLModel *model, int size);

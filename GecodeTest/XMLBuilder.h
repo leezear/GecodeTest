@@ -88,11 +88,11 @@ private:
 	u32 getConstraintsCount();
 
 	RelationType getRelationTpye();
-	/**
-	 * \brief
-	 *
-	 */
+
 	void getNetworkFeature(XMLModel * network);
+
+	int getMaxArity();
+
 	bool initial();
 
 };

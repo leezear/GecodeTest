@@ -105,8 +105,18 @@ void XMLBuilder::getNetworkFeature(XMLModel *i_model) {
 	i_model->features = feature_;
 }
 
+int XMLBuilder::getMaxArity()
+{
+	u32 max_arity = 0;
+	DOMNode *node = root_->getElementsByTagName(XMLString::transcode("presentation"))->item(0);
+	max_arity= (u32)XMLString::parseInt(
+		node->getAttributes()->getNamedItem(XMLString::transcode("maxConstraintArity"))->getTextContent());
+	return max_arity;
+}
+
 void XMLBuilder::generateDomains(XMLModel *i_model) {
 	u32 max_d_s = 0;
+	i_model->features.arity = getMaxArity();
 	DOMNode *doms_nodes = root_->getElementsByTagName(XMLString::transcode("domains"))->item(0);
 	u32 num_doms = (u32) XMLString::parseInt(
 			doms_nodes->getAttributes()->getNamedItem(XMLString::transcode("nbDomains"))->getTextContent());
@@ -166,27 +176,21 @@ void XMLBuilder::generateTabulars(XMLModel * i_model) {
 	int relation_name;
 	int tuple_arity;
 	int tuples_count;
-	int r_type;
+	Semantices sem;
 
 	for(int i = 0; i < relations_count; ++i) {
 		relation_name = i;
 		relation_node = relation_nodes->item(i);
 		tuple_arity = (int) XMLString::parseInt(
 				relation_node->getAttributes()->getNamedItem(XMLString::transcode("arity"))->getTextContent());
-
-//		if(tuple_arity != 2) {
-//			return false;
-//			std::cout << "输入应为二元约束" << std::endl;
-//		}
-
 		semantics = XMLString::transcode(
 				relation_node->getAttributes()->getNamedItem(XMLString::transcode("semantics"))->getTextContent());
 		tuples_count = XMLString::parseInt(
 				relation_node->getAttributes()->getNamedItem(XMLString::transcode("nbTuples"))->getTextContent());
 		//若属性semantics == supports则relation_type = SURPPOT
-		r_type = (strlen(semantics) == strlen("supports")) ? 1 : 0;
+		sem = (strlen(semantics) == strlen("supports")) ? SEM_SUPPORT : SEM_CONFLICT;
 		innertext = XMLString::transcode(relation_node->getFirstChild()->getNodeValue());
-		i_model->relations[i] = CreateTabular(relation_name, tuples_count, tuple_arity, r_type, innertext);
+		i_model->relations[i] = CreateTabular(relation_name, tuples_count, tuple_arity, sem, innertext);
 	}
 }
 

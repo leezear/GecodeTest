@@ -18,7 +18,7 @@ class GecodeModel: public Gecode::Space {
 private:
 public:
 	IntVarArray vars_;
-	GecodeModel();
+	GecodeModel() {}
 	GecodeModel(bool share, GecodeModel& s)
 			: Space(share, s) {
 		vars_ .update(*this, share, s.vars_ );
@@ -32,7 +32,7 @@ public:
 		std::cout << vars_  << std::endl;
 	}
 
-	virtual ~GecodeModel();
+	virtual ~GecodeModel(){}
 };
 
 #endif /* GECODEMODEL_H_ */

@@ -10,8 +10,8 @@
     <variable domain="D0" name="V2"/>
   </variables>
   <relations nbRelations="2">
-    <relation arity="2" name="R0" nbTuples="3" semantics="support">0 0|1 1|2 2</relation>
-    <relation arity="2" name="R1" nbTuples="3" semantics="support">0 1|0 2|1 2</relation>
+    <relation arity="2" name="R0" nbTuples="3" semantics="supports">0 0|1 1|2 2</relation>
+    <relation arity="2" name="R1" nbTuples="3" semantics="supports">0 1|0 2|1 2</relation>
   </relations>
   <constraints nbConstraints="2">
     <constraint arity="2" name="C0" reference="R0" scope="V0 V1"/>
