@@ -62,19 +62,20 @@ void BuildGecodeModel(const XMLModel *xmodel, GecodeModel* g_model)
 	else if (xmodel->ds_size != 1 && xmodel->vs_size != 1)
 	{
 		g_model->vars_ = IntVarArray(*g_model, xmodel->vs_size);
+
 		for (int i = 0; i < xmodel->vs_size; ++i)
 		{
 			XMLVariable* v = &xmodel->variables[i];
-			g_model->vars_[i] = IntVar(*g_model,
-				IntSet(xmodel->domains[v->dm_id].values, xmodel->domains[v->dm_id].size));
+			g_model->vars_[i] = IntVar(*g_model, IntSet(xmodel->domains[v->dm_id].values, xmodel->domains[v->dm_id].size));
 		}
 	}
+
 	if (xmodel->features.rel_type == REL_TABULAR)
 	{
 		int* tpl = new int[xmodel->features.arity];
 		XMLDomain** ds = new XMLDomain*[xmodel->features.arity];
-
 		int num_tuples;
+
 		for (int i = 0; i < xmodel->cs_size; ++i)
 		{
 			int k = 0;
@@ -83,6 +84,7 @@ void BuildGecodeModel(const XMLModel *xmodel, GecodeModel* g_model)
 			XMLRelation* r = &xmodel->relations[c->re_id];
 			XMLVariable* v;
 			XMLDomain* d;
+
 			if (r->semantices == SEM_SUPPORT)
 			{
 				for (int j = 0; j < r->size; ++j)
@@ -117,10 +119,7 @@ void BuildGecodeModel(const XMLModel *xmodel, GecodeModel* g_model)
 							++k;
 					}
 					else
-					{
 						ts.add(IntArgs(c->arity, tpl));
-					}
-
 				}
 
 				ts.finalize();
@@ -142,11 +141,9 @@ void BuildGecodeModel(const XMLModel *xmodel, GecodeModel* g_model)
 		tpl = NULL;
 		ds = NULL;
 	}
-	else {
-
+	else
+	{
 	}
-
-
 }
 
 

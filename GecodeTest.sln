@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GecodeTest", "GecodeTest\Ge
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlatZinc", "FlatZinc\FlatZinc.vcxproj", "{BF24C8A4-F396-4C29-956B-323EF74E25DC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OTTest", "OTTest\OTTest.vcxproj", "{57F5678E-9CD5-406E-A671-C24964BB8C4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{BF24C8A4-F396-4C29-956B-323EF74E25DC}.Release|x64.Build.0 = Release|x64
 		{BF24C8A4-F396-4C29-956B-323EF74E25DC}.Release|x86.ActiveCfg = Release|Win32
 		{BF24C8A4-F396-4C29-956B-323EF74E25DC}.Release|x86.Build.0 = Release|Win32
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Debug|x64.ActiveCfg = Debug|x64
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Debug|x64.Build.0 = Debug|x64
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Debug|x86.ActiveCfg = Debug|Win32
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Debug|x86.Build.0 = Debug|Win32
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Release|x64.ActiveCfg = Release|x64
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Release|x64.Build.0 = Release|x64
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Release|x86.ActiveCfg = Release|Win32
+		{57F5678E-9CD5-406E-A671-C24964BB8C4E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,6 +14,7 @@
 #include "XMLBuilder.h"
 #include "GecodeModel.h"
 #include "BuildGecodeModel.h"
+#include <gecode\int.hh>
 //#include "ModelTransfer.h"
 //#include "SAC1.h"
 
@@ -34,18 +35,47 @@ int main() {
 	builder.GenerateModelFromXml(xml_model);
 	GecodeModel* gm = new GecodeModel;
 	BuildGecodeModel(xml_model, gm);
+	GecodeModel* gmt = new GecodeModel;
+	BuildGecodeModel
+	//ViewArray<Int::IntView> va(gm->vars_);
+	const int var_size = gmt->vars_.size();
+	ViewArray<Int::IntView> va(*gmt, var_size);
+	for (int i = 0; i < var_size; ++i)
+	{
+		va[i] = Int::IntView(gmt->vars_[i]);
+	}
+	gm->print();
+	va[0].eq(*gm, 2);
+	//va[1].eq(*gm, 4);
+	gm->status();
+	if (gm->failed())
+		cout << "failed" << endl;
+	else
+		cout << "ac!" << endl;
+	cout << "-------------" << endl;
+	gm->print();
+	gmt->print();
 	DestroyEXTModel(xml_model);
 
-	branch(*gm, gm->vars_, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
-	DFS<GecodeModel> ee(gm);
+	//branch(*gm, gm->vars_, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
+	//DFS<GecodeModel> ee(gm);
+
+	//BrancherHandle as = assign(*gm, gm->vars_[0], INT_ASSIGN_MIN());
+	//as.update(*gm, true, as);
+	//IntAssign ass();
+	////branch(*gm, gm->vars_[0],)
+	//gm->status();
+	//cout << gm->vars_.assigned() << endl;
+	//gm->print();
 	delete gm;
-	int i = 0;
-	while(GecodeModel* ss = ee.next()) {
-		//ss->print();
-		++i;
-		delete ss;
-	}
-	cout <<"|solutions| = "<< i << endl;
+	delete gmt;
+	//int i = 0;
+	//while(GecodeModel* ss = ee.next()) {
+	//	ss->print();
+	//	++i;
+	//	delete ss;
+	//}
+	//cout <<"|solutions| = "<< i << endl;
 	cout << "---end---" << endl;
 	return 0;
 

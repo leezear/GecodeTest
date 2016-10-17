@@ -14,14 +14,17 @@
 
 using namespace Gecode;
 
-class GecodeModel: public Gecode::Space {
+class GecodeModel : public Gecode::Space {
 private:
 public:
 	IntVarArray vars_;
 	GecodeModel() {}
+	GecodeModel(GecodeModel& s) {
+		vars_ = IntVarArray(s.vars_);
+	}
 	GecodeModel(bool share, GecodeModel& s)
-			: Space(share, s) {
-		vars_ .update(*this, share, s.vars_ );
+		: Space(share, s) {
+		vars_.update(*this, share, s.vars_);
 	}
 
 	virtual Space* copy(bool share) {
@@ -29,10 +32,13 @@ public:
 	}
 
 	void print(void) const {
-		std::cout << vars_  << std::endl;
+		std::cout << vars_ << std::endl;
 	}
-
-	virtual ~GecodeModel(){}
+	GecodeModel operator = (GecodeModel& s)
+	{
+		vars_ = IntVarArray(s.vars_);
+	}
+	virtual ~GecodeModel() {}
 };
 
 #endif /* GECODEMODEL_H_ */
