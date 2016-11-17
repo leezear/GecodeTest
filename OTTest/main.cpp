@@ -24,6 +24,7 @@
 
 #include <base/logging.h>
 #include <constraint_solver/constraint_solver.h>
+#include "table.cc"
 
 namespace operations_research {
 
@@ -75,75 +76,39 @@ IntVar* const MakeBaseLine4(Solver* s,
 void CPIsFun() {
 	// Constraint programming engine
 	Solver solver("CP is fun!");
+	std::vector<int> vec = { 0,1,2 };
+	std::vector<IntVar*> vars;
+	vars.push_back(solver.MakeIntVar(vec));
+	vars.push_back(solver.MakeIntVar(vec));
+	vars.push_back(solver.MakeIntVar(vec));
 
-	const int64 kBase = 10;
+	std::vector<IntVar*> scope0;
+	std::vector<IntVar*> scope1;
+	std::vector<std::vector<int>> tuple0 = { {0,0},{1,1},{2,2} };
+	std::vector<std::vector<int>> tuple1 = { {0,1},{0,2},{1,2} };
+	IntTupleSet is0(2);
+	IntTupleSet is1(2);
+	is0.InsertAll(tuple0);
+	is1.InsertAll(tuple1);
+	scope0.push_back(vars[0]);
+	scope0.push_back(vars[1]);
+	scope1.push_back(vars[1]);
+	scope1.push_back(vars[2]);
 
-	// Decision variables
-	IntVar* const c = solver.MakeIntVar(1, kBase - 1, "C");
-	IntVar* const p = solver.MakeIntVar(0, kBase - 1, "P");
-	IntVar* const i = solver.MakeIntVar(1, kBase - 1, "I");
-	IntVar* const s = solver.MakeIntVar(0, kBase - 1, "S");
-	IntVar* const f = solver.MakeIntVar(1, kBase - 1, "F");
-	IntVar* const u = solver.MakeIntVar(0, kBase - 1, "U");
-	IntVar* const n = solver.MakeIntVar(0, kBase - 1, "N");
-	IntVar* const t = solver.MakeIntVar(1, kBase - 1, "T");
-	IntVar* const r = solver.MakeIntVar(0, kBase - 1, "R");
-	IntVar* const e = solver.MakeIntVar(0, kBase - 1, "E");
+	PositiveTableConstraint pt0(&solver, scope0, is0);
+	PositiveTableConstraint pt1(&solver, scope1, is1);
+	//solver.AddConstraint(solver.MakeEquality(vars[0], vars[1]));
+	//solver.AddConstraint(solver.MakeLess(vars[1], vars[2]));
 
-	// We need to group variables in a vector to be able to use
-	// the global constraint AllDifferent
-	std::vector<IntVar*> letters;
-	letters.push_back(c);
-	letters.push_back(p);
-	letters.push_back(i);
-	letters.push_back(s);
-	letters.push_back(f);
-	letters.push_back(u);
-	letters.push_back(n);
-	letters.push_back(t);
-	letters.push_back(r);
-	letters.push_back(e);
-
-	// Check if we have enough digits
-	CHECK_GE(kBase, letters.size());
-
-	// Constraints
-	solver.AddConstraint(solver.MakeAllDifferent(letters, false));
-
-	// CP + IS + FUN = FUN
-	IntVar* const term1 = MakeBaseLine2(&solver, c, p, kBase);
-	IntVar* const term2 = MakeBaseLine2(&solver, i, s, kBase);
-	IntVar* const term3 = MakeBaseLine3(&solver, f, u, n, kBase);
-	IntVar* const sum_terms = solver.MakeSum(solver.MakeSum(term1,
-		term2),
-		term3)->Var();
-
-	IntVar* const sum = MakeBaseLine4(&solver, t, r, u, e, kBase);
-
-	solver.AddConstraint(solver.MakeEquality(sum_terms, sum));
-
-
-	DecisionBuilder* const db = solver.MakePhase(letters,
+	DecisionBuilder* const db = solver.MakePhase(vars,
 		Solver::CHOOSE_FIRST_UNBOUND,
 		Solver::ASSIGN_MIN_VALUE);
 	solver.NewSearch(db);
 
 	if (solver.NextSolution()) {
 		LOG(INFO) << "Solution found:";
-		LOG(INFO) << "C=" << c->Value() << " " << "P=" << p->Value() << " "
-			<< "I=" << i->Value() << " " << "S=" << s->Value() << " "
-			<< "F=" << f->Value() << " " << "U=" << u->Value() << " "
-			<< "N=" << n->Value() << " " << "T=" << t->Value() << " "
-			<< "R=" << r->Value() << " " << "E=" << e->Value();
-
-		// Is CP + IS + FUN = TRUE?
-		CHECK_EQ(p->Value() + s->Value() + n->Value() +
-			kBase * (c->Value() + i->Value() + u->Value()) +
-			kBase * kBase * f->Value(),
-			e->Value() +
-			kBase * u->Value() +
-			kBase * kBase * r->Value() +
-			kBase * kBase * kBase * t->Value());
+		LOG(INFO) << "C=" << vars[0]->Value() << " " << "P=" << vars[1]->Value() << " "
+			<< "I=" << vars[2]->Value();
 	}
 	else {
 		LOG(INFO) << "Cannot solve problem.";

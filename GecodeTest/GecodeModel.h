@@ -8,22 +8,20 @@
 #ifndef GECODEMODEL_H_
 #define GECODEMODEL_H_
 
+#include <gecode/driver.hh>
 #include <gecode/int.hh>
 #include <gecode/minimodel.hh>
-#include <gecode/search.hh>
 
 using namespace Gecode;
 
-class GecodeModel : public Gecode::Space {
+class GecodeModel : public Script {
 private:
 public:
 	IntVarArray vars_;
-	GecodeModel() {}
-	GecodeModel(GecodeModel& s) {
-		vars_ = IntVarArray(s.vars_);
-	}
+	GecodeModel(const SizeOptions& opt) :
+		Script(opt) {}
 	GecodeModel(bool share, GecodeModel& s)
-		: Space(share, s) {
+		: Script(share, s) {
 		vars_.update(*this, share, s.vars_);
 	}
 
@@ -31,8 +29,8 @@ public:
 		return new GecodeModel(share, *this);
 	}
 
-	void print(void) const {
-		std::cout << vars_ << std::endl;
+	virtual void print(std::ostream& os) const {
+		os << vars_ << std::endl;
 	}
 	GecodeModel operator = (GecodeModel& s)
 	{
