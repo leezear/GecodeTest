@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GecodeDriver-4-4-0-d-x64.lib;GecodeInt-4-4-0-d-x64.lib;GecodeKernel-4-4-0-d-x64.lib;GecodeSearch-4-4-0-d-x64.lib;GecodeSupport-4-4-0-d-x64.lib;xerces-c_3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xerces-c_3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Xercesc\lib;C:\Program Files\Gecode\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
