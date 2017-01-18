@@ -67,6 +67,7 @@ void BuildGecodeModel(const XMLModel *xmodel, GecodeModel* g_model)
 		{
 			XMLVariable* v = &xmodel->variables[i];
 			g_model->vars_[i] = IntVar(*g_model, IntSet(xmodel->domains[v->dm_id].values, xmodel->domains[v->dm_id].size));
+			cout << i << ":" << g_model->vars_[i].size() << endl;
 		}
 	}
 

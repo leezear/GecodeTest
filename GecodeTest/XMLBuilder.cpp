@@ -99,10 +99,10 @@ RelationType XMLBuilder::getRelationTpye() {
 	return type;
 }
 
-void XMLBuilder::getNetworkFeature(XMLModel *i_model) {
+void XMLBuilder::getNetworkFeature() {
 	feature_.rel_type = getRelationTpye();
+	feature_.arity = getMaxArity();
 	feature_.cons_size = getConstraintsCount();
-	i_model->features = feature_;
 }
 
 int XMLBuilder::getMaxArity()
@@ -116,10 +116,10 @@ int XMLBuilder::getMaxArity()
 
 void XMLBuilder::generateDomains(XMLModel *i_model) {
 	u32 max_d_s = 0;
-	i_model->features.arity = getMaxArity();
 	DOMNode *doms_nodes = root_->getElementsByTagName(XMLString::transcode("domains"))->item(0);
 	u32 num_doms = (u32) XMLString::parseInt(
 			doms_nodes->getAttributes()->getNamedItem(XMLString::transcode("nbDomains"))->getTextContent());
+	feature_.vars_size = num_doms;
 	DOMNodeList *dom_nodes = root_->getElementsByTagName(XMLString::transcode("domain"));
 	u32 dom_id;
 	u32 dom_size;
@@ -280,7 +280,7 @@ bool XMLBuilder::GenerateModelFromXml(XMLModel *i_model) {
 //	getNetworkFeature();
 	generateDomains(i_model);
 	generateVariables(i_model);
-	getNetworkFeature(i_model);
+	getNetworkFeature();
 	generateRelations(i_model);
 	generateConstraints(i_model);
 	return true;

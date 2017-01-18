@@ -89,7 +89,9 @@ private:
 
 	RelationType getRelationTpye();
 
-	void getNetworkFeature(XMLModel * network);
+	void getNetworkFeature();
+
+	//void getNetworkFeature(XMLModel * network);
 
 	int getMaxArity();
 

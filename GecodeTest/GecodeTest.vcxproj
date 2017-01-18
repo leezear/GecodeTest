@@ -167,6 +167,7 @@
       <SubType>Designer</SubType>
     </Xml>
     <Xml Include="queens-12_ext.xml" />
+    <Xml Include="queens-4_ext.xml" />
     <Xml Include="XMLFile.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
